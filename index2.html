@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,700;1,700&family=Hind+Siliguri:wght@300;400;500;600;700&family=Roboto+Slab:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Widget</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e;
+        }
+        .widget {
+            width: 300px;
+            height: 80px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #181818;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: left;
+            padding: 10px;
+            gap: 10px;
+        }
+        .cover {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            background-size: cover;
+            background-position: center;
+        }
+        .info {
+            flex: 1;
+            color: white;
+            font-size: 14px;
+            overflow: hidden;
+        }
+        .crimson-text-bold {
+            font-family: "Crimson Text", serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+        .controls {
+            display: flex;
+            gap: 5px;
+        }
+        .controls button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <div class="cover" style="background-image: url('https://i.pinimg.com/736x/58/e7/12/58e712efc41461776a8dc0ebb4ea0a49.jpg');"></div>
+        <div class="info">
+            <p class="crimson-text-bold">Odysseus</p>
+            <div class="controls">
+                <button onclick="pauseAudio()">⏸</button>
+                <button onclick="playAudio()">▶</button>
+                <button onclick="repeatAudio()">↺</button>
+            </div>
+            <!-- Reproductor de SoundCloud usando iframe -->
+            <iframe id="audioPlayer" width="100%" height="20" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/sam-682514492/odysseus&color=%23181818&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // En este caso, no podemos controlar el audio de SoundCloud con JS directamente, pero el iframe tiene sus controles.
+        function playAudio() {
+            var iframe = document.getElementById("audioPlayer");
+            var player = SC.Widget(iframe);
+            player.play();
+        }
+
+        function pauseAudio() {
+            var iframe = document.getElementById("audioPlayer");
+            var player = SC.Widget(iframe);
+            player.pause();
+        }
+
+        function repeatAudio() {
+            var iframe = document.getElementById("audioPlayer");
+            var player = SC.Widget(iframe);
+            player.seekTo(0);  // Resetea el audio al principio
+            player.play();    // Reproduce el audio nuevamente
+        }
+    </script>
+
+    <!-- Cargar la librería de SoundCloud para controlar el reproductor -->
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+</body>
+</html>
